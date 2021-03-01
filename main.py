@@ -251,7 +251,7 @@ else:
             'choices': ['No', 'Si'],
             'default': 0,
             'filter': lambda val: 'heridas_' + val.lower(),
-            'when': lambda answers: answers['comportamiento'] == 'Decaído' or answers['comportamiento'] == 'Inquieto'
+            'when': lambda answers: answers['comportamiento'] == 'comportamiento_inquieto' or answers['comportamiento'] == 'comportamiento_decaído'
         },
         {
             'type': 'list',
@@ -260,7 +260,7 @@ else:
             'choices': ['Normal', 'Con insectos', 'Con caídas leves', 'Con caídas severas'],
             'default': 0,
             'filter': lambda val: 'pelaje_' + val.lower(),
-            'when': lambda answers: answers['comportamiento'] == 'Decaído' or answers['comportamiento'] == 'Inquieto'
+            'when': lambda answers: answers['comportamiento'] == 'comportamiento_decaído' or answers['comportamiento'] == 'comportamiento_inquieto'
         },
         {
             'type': 'list',
@@ -277,7 +277,7 @@ else:
             'choices': ['No', 'Si'],
             'default': 0,
             'filter': lambda val: 'sangrado_' + val.lower(),
-            'when': lambda answers: answers['heces'] == 'Normal' and answers['comportamiento'] != 'Normal' and answers['comportamiento'] != 'Nervioso'
+            'when': lambda answers: answers['heces'] == 'heces_normal' and answers['comportamiento'] != 'comportamiento_normal' and answers['comportamiento'] != 'comportamiento_nervioso'
 
         },
         {
@@ -287,7 +287,7 @@ else:
             'choices': ['No', 'Si'],
             'default': 0,
             'filter': lambda val: 'paralisis_' + val.lower(),
-            'when': lambda answers: answers['heces'] == 'Normal' and ( answers['comportamiento'] == 'Nervioso' or answers['comportamiento'] == 'Inquieto' )
+            'when': lambda answers: answers['heces'] == 'heces_normal' and ( answers['comportamiento'] == 'comportamiento_nervioso' or answers['comportamiento'] == 'comportamiento_inquieto' )
 
         },
         {
@@ -297,7 +297,7 @@ else:
             'choices': ['No', 'Si'],
             'default': 1,
             'filter': lambda val: 'ardor_' + val.lower(),
-            'when': lambda answers: answers['heces'] == 'Normal' and ( answers['comportamiento'] == 'Nervioso' or answers['comportamiento'] == 'Normal' or answers['comportamiento'] == 'Apático' )
+            'when': lambda answers: answers['heces'] == 'heces_normal' and ( answers['comportamiento'] == 'comportamiento_nervioso' or answers['comportamiento'] == 'comportamiento_normal' or answers['comportamiento'] == 'comportamiento_apático' )
 
         },
         {
@@ -307,8 +307,7 @@ else:
             'choices': ['Normal', 'Leve', 'Moderado', 'Severo'],
             'default': 0,
             'filter': lambda val: 'apetito_' + val.lower(),
-            'when': lambda answers: answers['heces'] == 'Normal' and (answers['comportamiento'] == 'Decaído' or answers['comportamiento'] == 'Apático' ))
-
+            'when': lambda answers: answers['heces'] == 'heces_normal' and (answers['comportamiento'] == 'comportamiento_decaído' or answers['comportamiento'] == 'comportamiento_apático' )
         },
         {
             'type': 'list',
@@ -317,7 +316,8 @@ else:
             'choices': ['No', 'Baja', 'Alta'],
             'default': 0,
             'filter': lambda val: 'fiebre_' + val.lower(),
-            'when': lambda answers: answers['heces'] == 'Normal' and (answers['comportamiento'] == 'Inquieto' or answers['comportamiento'] == 'Nervioso' )) and answers['pelaje'] == 'Normal'
+            'when': lambda answers: answers['heces'] == 'heces_normal'
+            #'when': lambda answers: answers['heces'] == 'heces_normal' and (answers['comportamiento'] == 'comportamiento_inquieto' or answers['comportamiento'] == 'comportamiento_nervioso' ) and answers['pelaje'] == 'pelaje_normal'
 
         },
         {
@@ -327,17 +327,18 @@ else:
             'choices': ['No', 'Si'],
             'default': 0,
             'filter': lambda val: 'convulsiones_' + val.lower(),
-            'when': lambda answers: answers['heces'] == 'Normal' and answers['comportamiento'] == 'Nervioso'
+            'when': lambda answers: answers['heces'] == 'heces_normal' and answers['comportamiento'] == 'comportamiento_nervioso'
 
         },
         {
             'type': 'list',
             'name': 'ojos',
             'message': 'Cuál es el estado de sus ojos?',
-            'choices': ['Normal', 'Con lágrimas', 'Con pus'],
-            'filter': lambda val: 'ojos_' + val.lower(),
+            'choices': ['Normal', 'Con lagrimas', 'Con pus'],
+            'filter': lambda val: 'ojos_' + val.lower(), #val.replace(" ","").lower(),
             'default': 0,
-            'when': lambda answers: answers['picazon'] == 'Normal' and answers['comportamiento'] == 'Nervioso' and answers['heridas'] == 'No' and answers['pelaje'] == 'Normal' and answers['heces'] == 'Normal' and answers['sangrado'] == 'No' and answers['paralisis'] == 'Si' and answers['ardor'] == 'Si' and answers['apetito'] == 'Normal' and answers['fiebre'] == 'Alta' and answers['convulsiones'] == 'Si'
+            'when': lambda answers: answers['heces'] == 'heces_normal'
+            #'when': lambda answers: answers['picazon'] == 'picazon_normal' and answers['comportamiento'] == 'comportamiento_nervioso' and answers['heridas'] == 'heridas_no' and answers['pelaje'] == 'pelaje_normal' and answers['heces'] == 'heces_normal' and answers['sangrado'] == 'sangrado_no' and answers['paralisis'] == 'paralisis_si' and answers['ardor'] == 'ardor_si' and answers['apetito'] == 'apetito_normal' and answers['fiebre'] == 'fiebre_alta' and answers['convulsiones'] == 'convulsiones_si'
         },
         {
             'type': 'list',
@@ -346,7 +347,7 @@ else:
             'choices': ['No', 'Si'],
             'default': 0,
             'filter': lambda val: 'tos_' + val.lower(),
-            'when': lambda answers: answers['heces'] == 'Normal' and answers['ojos'] == 'Con pus'
+            'when': lambda answers: answers['heces'] == 'heces_normal' and answers['ojos'] == 'ojos_conpus'
         },
         {
             'type': 'list',
@@ -355,7 +356,7 @@ else:
             'choices': ['No', 'Si'],
             'filter': lambda val: 'estornudos_' + val.lower(),
             'default': 0,
-            'when': lambda answers: answers['heces'] == 'Normal' and answers['ojos'] == 'Con pus' and answers['tos'] == 'Si'
+            'when': lambda answers: answers['heces'] == 'heces_normal' and answers['ojos'] == 'ojos_conpus' and answers['tos'] == 'tos_si'
         },
         {
             'type': 'list',
@@ -364,7 +365,7 @@ else:
             'choices': ['No', 'Si'],
             'default': 0,
             'filter': lambda val: 'vomito_' + val.lower(),
-            'when': lambda answers: answers['heces'] == 'Normal' and answers['ojos'] == 'Con pus' and answers['tos'] == 'Si' and answers['estornudos'] == 'Si'
+            'when': lambda answers: answers['heces'] == 'heces_normal' and answers['ojos'] == 'ojos_conpus' and answers['tos'] == 'tos_si' and answers['estornudos'] == 'estornudos_si'
         },
         {
             'type': 'list',
@@ -372,8 +373,8 @@ else:
             'message': 'Cuál es el estado de sus oídos?',
             'choices': ['Normal', 'Con temperatura', 'Con olor'],
             'default': 0,
-            'filter': lambda val: 'oidos_' + val.lower(),
-            'when': lambda answers: answers['heces'] == 'Normal' and ( answers['ojos'] == 'Con pus' or answers['fiebre'] == 'Baja')
+            'filter': lambda val: 'oidos_' + val.lower(), #val.replace(" ","").lower(),
+            'when': lambda answers: answers['heces'] == 'heces_normal' and ( answers['ojos'] == 'ojos_conpus' or answers['fiebre'] == 'fiebre_baja')
         },
         {
             'type': 'list',
@@ -382,7 +383,7 @@ else:
             'choices': ['No', 'Si'],
             'default': 0,
             'filter': lambda val: 'debilidad_' + val.lower(),
-            'when': lambda answers: answers['heces'] == 'Normal' and answers['comportamiento'] != 'Normal'
+            'when': lambda answers: answers['heces'] == 'heces_normal' and answers['comportamiento'] != 'comportamiento_normal'
 
         },
         {
@@ -392,7 +393,7 @@ else:
             'choices': ['No', 'Si'],
             'default': 0,
             'filter': lambda val: 'cojera_' + val.lower(),
-            'when': lambda answers: answers['heces'] == 'Normal' and (answers['comportamiento'] == 'Normal' or answers['comportamiento'] == 'Apático')
+            'when': lambda answers: answers['heces'] == 'heces_normal' and (answers['comportamiento'] == 'comportamiento_normal' or answers['comportamiento'] == 'comportamiento_apático')
 
         },
         {
@@ -402,7 +403,7 @@ else:
             'choices': ['No', 'Abdominal', 'En las extremidades'],
             'filter': lambda val: 'dolor_' + val.lower(),
             'default': 0,
-            'when': lambda answers: answers['heces'] == 'Normal' and (answers['cojera'] == 'Si' or answers['convulsiones'] == 'Si')
+            'when': lambda answers: answers['heces'] == 'comportamiento_normal' and (answers['cojera'] == 'cojera_si' or answers['convulsiones'] == 'convulsiones_si')
         },
         {
             'type': 'list',
@@ -411,7 +412,8 @@ else:
             'choices': ['No', 'Si'],
             'default': 0,
             'filter': lambda val: 'jadeo_' + val.lower(),
-            'when': lambda answers: answers['heces'] == 'Normal' and (answers['oidos'] == 'Con Temperatura' or (answers['cojera'] == 'Si' and answers['comportamiento'] == 'Normal'))
+            'when': lambda answers: answers['heces'] == 'heces_normal' and (answers.get('oidos','oidos_normal') == 'oidos_normal' or (answers.get('cojera','cojera_no') == 'cojera_si' and answers['comportamiento'] == 'comportamiento_normal'))
+            #'when': lambda answers: answers['heces'] == 'heces_normal' and (answers.get('cojera','cojera_no') == 'cojera_si' and answers['comportamiento'] == 'comportamiento_normal')
         },
         {
             'type': 'list',
@@ -420,11 +422,16 @@ else:
             'choices': ['Normal', 'Más de lo normal'],
             'default': 0,
             'filter': lambda val: 'ladridos_' + val.lower(),
-            'when': lambda answers: answers['heces'] == 'Normal' and answers['cojera'] == 'Si' and answers['comportamiento'] == 'Normal'
+            'when': lambda answers: answers['heces'] == 'heces_normal' and answers.get('cojera', 'cojera_no') == 'cojera_si' and answers['comportamiento'] == 'comportamiento_normal'
         }
     ]
 
     answers = prompt(questions, style=custom_style_3)
+    for question in questions:
+        if question['name'] not in answers:
+            answers[question['name']] = question['filter'](question['choices'][question['default']])
+    
+    #print(answers)
 
     initialKnowledge = answers.values()
 
